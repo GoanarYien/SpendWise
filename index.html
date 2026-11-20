@@ -1,0 +1,278 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendWise — Personal Budget &amp; Expense Tracker</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" aria-label="Primary Navigation">
+      <div class="brand">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png"
+          alt="SpendWise wallet icon"
+          width="36"
+          height="36"
+        />
+        <span class="brand-name">SpendWise</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#overview" class="nav-item active">Dashboard Overview</a>
+        <a href="#add-expense" class="nav-item">Add Expense</a>
+        <a href="#expenses-section" class="nav-item">Expense History</a>
+        <a href="#tips-section" class="nav-item">Budgeting Guide</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" id="set-budget-btn" class="btn btn-secondary">
+          Set Monthly Budget
+        </button>
+        <button type="button" id="reset-demo-btn" class="btn btn-ghost">
+          Reset Sample Data
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Header -->
+      <header class="app-header card" id="overview">
+        <div class="header-title-group">
+          <h1>SpendWise Budget Tracker</h1>
+          <p class="subtitle">
+            Track your income, control category spending, and monitor your remaining balance in real time.
+          </p>
+        </div>
+
+        <div class="budget-summary-pills">
+          <div class="summary-pill">
+            <span class="pill-label">Monthly Budget</span>
+            <strong id="display-budget">$2,500.00</strong>
+          </div>
+          <div class="summary-pill">
+            <span class="pill-label">Total Spent</span>
+            <strong id="display-spent">$0.00</strong>
+          </div>
+          <div class="summary-pill">
+            <span class="pill-label">Remaining</span>
+            <strong id="display-remaining">$2,500.00</strong>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dynamic Budget Status Banner (Decision Making Feedback) -->
+      <div id="budget-status-banner" class="status-banner status-healthy" role="status" aria-live="polite">
+        Loading budget status...
+      </div>
+
+      <main class="content-grid">
+        <!-- Category Overview Cards (6 Categories) -->
+        <section aria-labelledby="categories-heading" class="categories-section">
+          <h2 id="categories-heading" class="section-title">Category Breakdown</h2>
+          <div class="category-cards-grid">
+            <article class="category-card card" tabindex="0" data-category="Food">
+              <div class="card-top">
+                <span class="category-badge badge-food">Food</span>
+                <span class="card-meta" id="count-Food">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Food">$0.00</p>
+              <p class="card-subtext">Groceries, dining &amp; coffee</p>
+            </article>
+
+            <article class="category-card card" tabindex="0" data-category="Transport">
+              <div class="card-top">
+                <span class="category-badge badge-transport">Transport</span>
+                <span class="card-meta" id="count-Transport">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Transport">$0.00</p>
+              <p class="card-subtext">Fuel, transit &amp; rideshare</p>
+            </article>
+
+            <article class="category-card card" tabindex="0" data-category="Rent">
+              <div class="card-top">
+                <span class="category-badge badge-rent">Rent</span>
+                <span class="card-meta" id="count-Rent">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Rent">$0.00</p>
+              <p class="card-subtext">Housing &amp; lease payments</p>
+            </article>
+
+            <article class="category-card card" tabindex="0" data-category="Entertainment">
+              <div class="card-top">
+                <span class="category-badge badge-entertainment">Entertainment</span>
+                <span class="card-meta" id="count-Entertainment">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Entertainment">$0.00</p>
+              <p class="card-subtext">Streaming, movies &amp; events</p>
+            </article>
+
+            <article class="category-card card" tabindex="0" data-category="Utilities">
+              <div class="card-top">
+                <span class="category-badge badge-utilities">Utilities</span>
+                <span class="card-meta" id="count-Utilities">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Utilities">$0.00</p>
+              <p class="card-subtext">Electricity, water &amp; internet</p>
+            </article>
+
+            <article class="category-card card" tabindex="0" data-category="Other">
+              <div class="card-top">
+                <span class="category-badge badge-other">Other</span>
+                <span class="card-meta" id="count-Other">0 items</span>
+              </div>
+              <p class="card-amount" id="total-Other">$0.00</p>
+              <p class="card-subtext">Savings transfers &amp; misc</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Two-Column Workspace: Add Expense Form + Expense Table -->
+        <div class="workspace-split">
+          <!-- Add Expense Section -->
+          <section class="add-expense-section card" id="add-expense" aria-labelledby="add-expense-heading">
+            <h2 id="add-expense-heading">Add Expense</h2>
+            <p class="section-desc">Log a new transaction to update your budget automatically.</p>
+
+            <form id="expense-form" novalidate>
+              <div class="form-group">
+                <label for="expense-name">Expense Name</label>
+                <input
+                  type="text"
+                  id="expense-name"
+                  name="expense-name"
+                  placeholder="e.g., Weekly Groceries"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="expense-amount">Amount ($)</label>
+                <input
+                  type="number"
+                  id="expense-amount"
+                  name="expense-amount"
+                  placeholder="e.g., 65.50"
+                  step="0.01"
+                  min="0.01"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="expense-category">Category</label>
+                <select id="expense-category" name="expense-category" required>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Rent">Rent</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="expense-date">Date</label>
+                <input type="date" id="expense-date" name="expense-date" required />
+              </div>
+
+              <p id="form-error" class="form-error" role="alert" hidden></p>
+
+              <button type="button" id="add-expense-btn" class="btn btn-primary">
+                Add Expense
+              </button>
+            </form>
+          </section>
+
+          <!-- Your Expenses Table Section -->
+          <section class="expenses-section card" id="expenses-section" aria-labelledby="expenses-heading">
+            <div class="table-header-bar">
+              <div>
+                <h2 id="expenses-heading">Your Expenses</h2>
+                <p class="section-desc">Recent transactions recorded in your budget.</p>
+              </div>
+              <div class="filter-group">
+                <label for="filter-category" class="sr-only">Filter by Category</label>
+                <select id="filter-category">
+                  <option value="All">All Categories</option>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Rent">Rent</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table id="expenses-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="expenses-tbody">
+                  <!-- Populated dynamically by script.js (initialized with 5 sample expenses) -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- Interactive Collapsible Guide & Embedded Budgeting Video -->
+        <section class="resources-section card" id="tips-section" aria-labelledby="resources-heading">
+          <h2 id="resources-heading">Smart Budgeting Resources</h2>
+
+          <details class="guide-details">
+            <summary>How to use SpendWise effectively</summary>
+            <div class="details-content">
+              <ol>
+                <li><strong>Set your target:</strong> Click <em>Set Monthly Budget</em> in the sidebar to enter your monthly spending limit.</li>
+                <li><strong>Log every transaction:</strong> Enter the item name, amount, category, and date in the <em>Add Expense</em> form.</li>
+                <li><strong>Watch your status banner:</strong> SpendWise automatically warns you when you pass 80% of your budget or exceed your limit.</li>
+                <li><strong>Filter or remove items:</strong> Use the category dropdown above the table to inspect specific spending areas or delete mistakes.</li>
+              </ol>
+            </div>
+          </details>
+
+          <div class="video-container">
+            <h3>50/30/20 Budgeting Rule Explained</h3>
+            <div class="iframe-wrapper">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/HQzoZfc3GwQ"
+                title="50/30/20 Rule Budgeting Tip Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

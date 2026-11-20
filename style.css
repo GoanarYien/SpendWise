@@ -1,0 +1,578 @@
+CSS
+/* =========================================================
+   1. CSS Custom Properties (Theme & Automatic Dark Mode)
+   ========================================================= */
+:root {
+  --brand-color: #0f766e;
+  --brand-hover: #0d5e58;
+  --accent-color: #f59e0b;
+  --bg-page: #f1f5f9;
+  --surface-color: #ffffff;
+  --surface-muted: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: #e2e8f0;
+  --danger-color: #dc2626;
+  --success-color: #15803d;
+  --warning-color: #b45309;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.1);
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-heading: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-color: #14b8a6;
+    --brand-hover: #2dd4bf;
+    --accent-color: #fbbf24;
+    --bg-page: #0b1120;
+    --surface-color: #131c31;
+    --surface-muted: #1b2640;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #273452;
+    --danger-color: #f87171;
+    --success-color: #4ade80;
+    --warning-color: #fbbf24;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* =========================================================
+   2. Base Reset & Typography
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.brand-name {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* =========================================================
+   3. Dashboard Layout (CSS Grid + Flexbox)
+   ========================================================= */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--brand-color);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: auto;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background-color: var(--surface-muted);
+  color: var(--brand-color);
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Main Content Wrapper */
+.main-wrapper {
+  padding: 1.75rem 2rem;
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Box Model Visual Cards */
+.card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================================================
+   4. Header & Summary Pills
+   ========================================================= */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+.budget-summary-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.summary-pill {
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 1rem;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pill-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.summary-pill strong {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin-top: 0.15rem;
+}
+
+/* Dynamic Status Banner */
+.status-banner {
+  padding: 0.9rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-left: 5px solid var(--brand-color);
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.status-healthy {
+  border-left-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.status-warning {
+  border-left-color: var(--warning-color);
+  color: var(--warning-color);
+}
+
+.status-danger {
+  border-left-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+/* =========================================================
+   5. Category Cards Grid & Micro-interactions (<= 250ms)
+   ========================================================= */
+.content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-title {
+  margin-bottom: 0.85rem;
+}
+
+.category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.65rem;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.category-card:hover,
+.category-card:focus {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-color);
+  outline: none;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: var(--surface-muted);
+  color: var(--brand-color);
+  border: 1px solid var(--border-color);
+}
+
+.card-meta {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.card-amount {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.card-subtext {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* =========================================================
+   6. Workspace Split: Add Expense Form & Expense Table
+   ========================================================= */
+.workspace-split {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-bottom: 1.15rem;
+}
+
+#expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Advanced Selectors: negation pseudo-class + focus state */
+input:not([type="submit"]),
+select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-muted);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--brand-color);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
+}
+
+.form-error {
+  color: var(--danger-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-hover);
+}
+
+.btn-secondary {
+  background-color: var(--accent-color);
+  color: #0f172a;
+}
+
+.btn-secondary:hover {
+  filter: brightness(0.95);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  background-color: var(--surface-muted);
+  color: var(--text-primary);
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: var(--danger-color);
+  color: #ffffff;
+}
+
+/* =========================================================
+   7. Expense Table Styling (Descendant & Positional Selectors)
+   ========================================================= */
+.table-header-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+#expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+#expenses-table thead th {
+  background-color: var(--brand-color);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--brand-color);
+}
+
+/* Descendant selector */
+.expenses-section td {
+  padding: 0.75rem 0.95rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Positional pseudo-class for alternating rows */
+#expenses-table tbody tr:nth-child(even) {
+  background-color: var(--surface-muted);
+}
+
+/* Hover state on table rows */
+#expenses-table tbody tr:hover {
+  background-color: rgba(15, 118, 110, 0.09);
+}
+
+/* =========================================================
+   8. Interactive Details & Embedded Video
+   ========================================================= */
+.resources-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.resources-section > h2 {
+  grid-column: 1 / -1;
+}
+
+.guide-details {
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+}
+
+.guide-details summary {
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--brand-color);
+}
+
+.details-content {
+  margin-top: 0.85rem;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.details-content li {
+  margin-bottom: 0.45rem;
+}
+
+.iframe-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================================================
+   9. Responsive Media Query (< 768px Single-Column Layout)
+   ========================================================= */
+@media (max-width: 960px) {
+  .workspace-split,
+  .resources-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .main-wrapper {
+    padding: 1.25rem 1rem;
+  }
+
+  .category-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
